@@ -99,7 +99,7 @@ public class ListaPartidos extends ArrayList {
         
         try {
             sc = new Scanner(new File(this.nombreArchivo));
-            sc.useDelimiter("\n"); // Leerá por renglones.
+            sc.useDelimiter("\\r\\n|\\r|\\n"); // Leerá por renglones.
             int linea = 1;
             while (sc.hasNext() && todoOk){
                 infoDelPartido = sc.next();
