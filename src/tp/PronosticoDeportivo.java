@@ -29,7 +29,7 @@ public class PronosticoDeportivo {
         equipos.cargarDeArchivo();
         System.out.println("Los equipos cargados son:\n" + equipos.listar());
         
-        // Buscar y mostrar el equipo 17.
+        // Buscar y mostrar el equipo 17...
         System.out.println ("Buscando el equipo");
         int idEquipo = 17;
         Equipo eq = equipos.getEquipo(idEquipo);
@@ -60,5 +60,36 @@ public class PronosticoDeportivo {
         pronosticos.setNombreDeArchivo("pronosticos.csv");
         pronosticos.cargarDeArchivo(7, equipos, partidos);
         System.out.println("Los pronósticos del participante 7 son: \n" + pronosticos.listar());
+        
+        // Creamos participantes y cargamos un pronostico
+        if ((pronosticos.getPronosticos()).isEmpty()){
+            System.out.println("Pronosticos es una lista vacia.");
+        } else {
+            System.out.println("Pronosticos no es una lista vacía.");
+        }
+        Participante participante = new Participante(7, "Joaquin", pronosticos, 0);
+        
+        if (equipos==null){
+            System.out.println("Equipos es null.");
+        } else {
+            System.out.println("Equipos no es null.");
+        }
+        participante.cargarPronosticos(equipos, partidos);
+        if (participante.getPronosticos()==null){
+            System.out.println("Pronosticos es null.");
+        } else {
+            System.out.println("Pronosticos no es null.");
+        }
+        if (((participante.getPronosticos()).getPronosticos()).isEmpty()){
+            System.out.println("Pronosticos es una lista vacia.");
+        } else {
+            System.out.println("Pronosticos no es una lista vacía.");
+        }
+        // participante.getPronosticos();
+        System.out.println(participante);
+        
+        char pruebita = 'e';
+        System.out.println("El caracter es: " + Character.toUpperCase(pruebita));
+ 
     }    
 }
