@@ -44,7 +44,7 @@ public class ListaPronosticos extends ArrayList {
     
     
     
-    // SETTERS & GETTERS.
+    // SETTERS & GETTERS
 
     public List<Pronostico> getPronosticos() {
         return pronosticos;
@@ -128,10 +128,11 @@ public class ListaPronosticos extends ArrayList {
                         auxIdParticipante = Integer.parseInt(vectorPronostico[1]);
                         auxIdPartido = Integer.parseInt(vectorPronostico[2]);
                         auxIdEquipo = Integer.parseInt(vectorPronostico[3]);
-                        auxResultado = (vectorPronostico[4]).charAt(0);
+                        auxResultado = (vectorPronostico[4]).charAt(1);
                         // Si hasta ahora vamos bien, verifico que los valores leídos sean válidos.
-                        if((auxIdPronostico <= 0)&&(auxIdParticipante <= 0)&&(auxIdPartido <= 0)&&(auxIdEquipo <= 0)&&(charValidos.indexOf(auxResultado)< 0)){
+                        if((auxIdPronostico <= 0)||(auxIdParticipante <= 0)||(auxIdPartido <= 0)||(auxIdEquipo <= 0)||(charValidos.indexOf(auxResultado)< 0)){
                             todoOk = false;
+                            // System.out.println("El caracter leído es " + Character.toString(auxResultado));
                             mensajeDeError = "Existe al menos un id negativo o un resultado invalido";
                         }
                         // Si hasta acá vamos bien, veo si el idParticipante de la 
@@ -149,7 +150,7 @@ public class ListaPronosticos extends ArrayList {
                                     Equipo auxEquipo = equipos.getEquipo(auxIdEquipo);
                                     // Verifico existencia de Partido y Equipo con esos ids.
                                     if (auxPartido!=null && auxEquipo!=null) { 
-                                        auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, auxResultado);
+                                        auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, Character.toUpperCase(auxResultado));
                                     } else {
                                         mensajeDeError = "No se puede armar la lista de pronosticos para este participante.\n";
                                         mensajeDeError += "Uno de los Equipos y/o Partidos referidos no existe.\n";
