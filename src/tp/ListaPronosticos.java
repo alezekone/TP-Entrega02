@@ -141,7 +141,7 @@ public class ListaPronosticos extends ArrayList {
                         // levantar.
                         // En caso negativo, ignoro la línea.
                         // En caso afirmativo, analizo si existen un Partido y un 
-                        // Equipo con los id suministrados.
+                        // Equipo con los id suministrados. 
                         if (todoOk) {
                                 if(auxIdParticipante!=idParticipante){
                                     continue; // Salgo del while, esta línea no me interesa.
