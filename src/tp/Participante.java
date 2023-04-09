@@ -78,7 +78,11 @@ public class Participante {
         if (pronosticos==null) {
             cantPronosticos = 0;
         } else {
-            cantPronosticos = (pronosticos.getPronosticos()).size();
+            if(pronosticos.getPronosticos()==null) {
+                cantPronosticos = 0;
+            } else { // Toqúé por acá...
+                cantPronosticos = (pronosticos.getPronosticos()).size();                
+            }
         }
         if (cantPronosticos == 0) {
             aux = "[]";
@@ -97,17 +101,17 @@ public class Participante {
     
     void cargarPronosticos(ListaEquipos equipos, ListaPartidos partidos) {
         ListaPronosticos lp = new ListaPronosticos();
+        /*
         if (equipos==null){
             System.out.println("Equipos es null.");
         } else {
             System.out.println("Equipos no es null.");
         }
+        */
         lp.setNombreDeArchivo("pronosticos.csv");
-        System.out.println(lp.getNombreDeArchivo());
         lp.cargarDeArchivo(this.idParticipante, equipos, partidos);
-        // this.setPronosticos(lp);
-        // nancysilva840@gmail.com
-        // guillesuarez68@gmail.com
+        this.setPronosticos(lp);
+
     }
 
 }
