@@ -85,7 +85,7 @@ public class ListaPronosticos extends ArrayList {
         int auxIdPronostico;
         int auxIdParticipante;
         int auxIdPartido;
-        int auxIdEquipo;
+        int auxIdEquipo;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
         char auxResultado;
         
         if (this.pronosticos == null) {
@@ -130,7 +130,7 @@ public class ListaPronosticos extends ArrayList {
                         auxIdEquipo = Integer.parseInt(vectorPronostico[3]);
                         auxResultado = (vectorPronostico[4]).charAt(1);
                         // Si hasta ahora vamos bien, verifico que los valores leídos sean válidos.
-                        if((auxIdPronostico <= 0)||(auxIdParticipante <= 0)||(auxIdPartido <= 0)||(auxIdEquipo <= 0)||(charValidos.indexOf(auxResultado)< 0)){
+                        if((auxIdPronostico <= 0)||(auxIdParticipante <= 0)||(auxIdPartido <= 0)||(auxIdEquipo <= 0)||(auxIdEquipo > 2)||(charValidos.indexOf(auxResultado)< 0)){
                             todoOk = false;
                             // System.out.println("El caracter leído es " + Character.toString(auxResultado));
                             mensajeDeError = "Existe al menos un id negativo o un resultado invalido";
@@ -147,7 +147,15 @@ public class ListaPronosticos extends ArrayList {
                                     continue; // Salgo del while, esta línea no me interesa.
                                 } else {
                                     Partido auxPartido = partidos.getPartido(auxIdPartido);
-                                    Equipo auxEquipo = equipos.getEquipo(auxIdEquipo);
+                                    Equipo auxEquipo = null;
+                                    if (auxIdEquipo == 1) {
+                                        auxEquipo = auxPartido.getEquipo1();
+                                    } else {   // auxIdEquipo == 2
+                                        auxEquipo = auxPartido.getEquipo2();
+                                    }
+                                    
+                                    // Equipo auxEquipo = equipos.getEquipo(auxIdEquipo);
+                                    
                                     // Verifico existencia de Partido y Equipo con esos ids.
                                     if (auxPartido!=null && auxEquipo!=null) { 
                                         auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, Character.toUpperCase(auxResultado));

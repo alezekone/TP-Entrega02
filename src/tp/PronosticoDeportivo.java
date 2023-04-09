@@ -15,11 +15,13 @@ public class PronosticoDeportivo {
     private ListaEquipos equipos;
     private ListaPartidos partidos;
     private ListaPronosticos pronosticos;
+    private ListaParticipantes participantes;
 
     public PronosticoDeportivo() {
         equipos = new ListaEquipos();
         partidos = new ListaPartidos();
         pronosticos = new ListaPronosticos();
+        participantes = new ListaParticipantes();
     }
 
     public void play(){
@@ -27,10 +29,10 @@ public class PronosticoDeportivo {
         System.out.println("\n" + "*".repeat(10) + " Equipos " + "*".repeat(10) + "\n");
         equipos.setNombreArchivo("equipos.csv");
         equipos.cargarDeArchivo();
-        System.out.println("Los equipos cargados son:\n" + equipos.listar());
+        System.out.println(equipos.listar());
         
         // Buscar y mostrar el equipo 17...
-        System.out.println ("Buscando el equipo");
+        System.out.println("\n" + "*".repeat(10) + " Buscando el equipo con id 17... " + "*".repeat(10) + "\n");
         int idEquipo = 17;
         Equipo eq = equipos.getEquipo(idEquipo);
         if (eq != null) {
@@ -43,10 +45,10 @@ public class PronosticoDeportivo {
         System.out.println("\n" + "*".repeat(10) + " Partidos " + "*".repeat(10) + "\n");
         partidos.setNombreArchivo("partidos.csv");
         partidos.cargarDeArchivo(equipos);
-        System.out.println("Los partidos cargados son: \n" + partidos.listar());
+        System.out.println(partidos.listar());
         
         // Buscar y mostrar el partido 7.
-        System.out.println ("Buscando el partido");
+        System.out.println("\n" + "*".repeat(10) + " Buscando el partido con id 7... " + "*".repeat(10) + "\n");
         int idPartido = 7;
         Partido p = partidos.getPartido(idPartido);
         if (p != null) {
@@ -56,24 +58,29 @@ public class PronosticoDeportivo {
         }
         
         // Cargar y listar pronosticos.
-        System.out.println("\n" + "*".repeat(10) + " Pronosticos " + "*".repeat(10) + "\n");
+        System.out.println("\n" + "*".repeat(10) + " Pronosticos del participante con id 7... " + "*".repeat(10) + "\n");
         pronosticos.setNombreDeArchivo("pronosticos.csv");
         pronosticos.cargarDeArchivo(7, equipos, partidos);
         System.out.println("Los pronósticos del participante 7 son: \n" + pronosticos.listar());
         
-        // Creamos participantes y cargamos un pronostico
+        // PRUEBA: Creamos participantes y cargamos un pronostico
+        /*
         if ((pronosticos.getPronosticos()).isEmpty()){
             System.out.println("Pronosticos es una lista vacia.");
         } else {
             System.out.println("Pronosticos no es una lista vacía.");
         }
-        Participante participante = new Participante(7, "Joaquin", pronosticos, 0);
         
+        Participante participante = new Participante(7, "Joaquin", pronosticos, 0);
+        */
+        /*
         if (equipos==null){
             System.out.println("Equipos es null.");
         } else {
             System.out.println("Equipos no es null.");
         }
+        
+        
         participante.cargarPronosticos(equipos, partidos);
         if (participante.getPronosticos()==null){
             System.out.println("Pronosticos es null.");
@@ -90,6 +97,25 @@ public class PronosticoDeportivo {
         
         char pruebita = 'e';
         System.out.println("El caracter es: " + Character.toUpperCase(pruebita));
- 
+        */
+        
+        participantes.setNombreDeArchivo("participantes.csv");
+        participantes.cargarDeArchivo();
+        System.out.println("\n" + "*".repeat(10) + " Participantes " + "*".repeat(10) + "\n");
+        System.out.println(participantes.listar());
+        
+        // IMPORTANTE: Una vez cargados los participantes, para cada uno de ellos
+        // se deben cargar sus pronósticos !!!
+        // Y luego, calcular sus puntajes !!!
+        
+        for(Participante pte : participantes.getParticipantes()) {
+            pte.cargarPronosticos(equipos, partidos);
+        }
+        
+        System.out.println("\n" + "*".repeat(10) + " Participantes y sus puntajes " + "*".repeat(10) + "\n");
+        participantes.calcularPuntajes();
+        
+        System.out.println("\n" + "*".repeat(10) + " Participantes y sus datos completos " + "*".repeat(10) + "\n");
+        System.out.println("Los participantes son:\n" + participantes.listar());
     }    
 }
