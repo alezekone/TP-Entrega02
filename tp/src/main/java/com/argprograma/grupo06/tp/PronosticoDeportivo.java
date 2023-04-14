@@ -45,7 +45,7 @@ public class PronosticoDeportivo {
         // Cargar y listar partidos.
         System.out.println("\n" + "*".repeat(10) + " Partidos " + "*".repeat(10) + "\n");
         partidos.setNombreArchivo("partidos.csv");
-        partidos.cargarDeArchivo(equipos);
+        partidos.cargarDeDB(equipos);
         System.out.println(partidos.listar());
         
         // Buscar y mostrar el partido 7.

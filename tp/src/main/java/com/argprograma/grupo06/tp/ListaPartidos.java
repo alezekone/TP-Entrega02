@@ -22,7 +22,7 @@ import java.sql.Statement;
  */
 public class ListaPartidos extends ArrayList {
      private List<Partido> partidos;
-    private String nombreArchivo;
+     private String nombreArchivo;
     
     // CONSTRUCTORES
 
@@ -176,5 +176,56 @@ public class ListaPartidos extends ArrayList {
         }
         // System.out.println("Fin de archivo.");
     }
-      
+    void cargarDeDB(ListaEquipos equipos){
+        Partido auxPartido = null;
+        boolean todoOk = true;
+        if (this.partidos == null) {
+            partidos = new ArrayList<Partido>();
+        } else {
+              while (!partidos.isEmpty()) {
+                partidos.remove(0);
+            }
+        }
+        
+        Connection conn = null;
+        
+        try {
+            //
+            // Establecer una conexión
+            conn = DriverManager.getConnection("jdbc:sqlite:pronosticos.db");
+            // Crear el "statement" para enviar comandos
+            Statement stmt = conn.createStatement();
+            // Crear el "statement" para enviar comandos
+            
+            String sql = "SELECT "
+            + "idPartido, idEquipo1, idEquipo2, golesEquipo1, golesEquipo2 "
+            + "FROM partidos " ;
+            ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
+            while (rs.next()){
+                int auxIdPartido = (rs.getInt("idPartido"));
+                int auxIdEquipo1 = (rs.getInt("idEquipo1"));
+                int auxIdEquipo2 = (rs.getInt("idEquipo2"));
+                int auxGolesEquipo1 = (rs.getInt("golesEquipo1"));
+                int auxGolesEquipo2 = (rs.getInt("golesEquipo2"));
+                Equipo auxEquipo1 = equipos.getEquipo(auxIdEquipo1);
+                Equipo auxEquipo2 = equipos.getEquipo(auxIdEquipo2);
+                auxPartido = new Partido(auxIdPartido, auxEquipo1, auxEquipo2, auxGolesEquipo1, auxGolesEquipo2);       
+                // Agrego el objeto recién creado a al atributo que contiene el ArrayList de Equipos.
+                partidos.add(auxPartido);
+    
+            }
+        } catch (SQLException e1) {
+            System.out.println("SQLException - Mensaje E1: " + e1.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                 }
+                } catch (SQLException e) {
+                // conn close failed.
+                System.out.println(e.getMessage());
+                }
+        }
+        // System.out.println("Fin de archivo.");
+    }  
 }
