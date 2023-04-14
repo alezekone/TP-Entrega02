@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 
 // Solo en al momento de instanciar la lista (al hacer el new()) se usa ArrayList !!!
 
@@ -27,7 +33,7 @@ public class ListaEquipos extends ArrayList {
 
     public ListaEquipos() {
         super();
-        this.equipos = null;
+        this.equipos = new ArrayList<Equipo>();
         this.nombreArchivo = "";
     }
     
@@ -151,6 +157,47 @@ public class ListaEquipos extends ArrayList {
             } catch  (Exception e3) {
                 System.out.println("Exception - Mensaje E3: " + e3.getMessage());
             }
+        }
+        // System.out.println("Fin de archivo.");
+    }
+    
+    void cargarDeDB(){
+        Equipo auxEquipo = null;
+        
+        Connection conn = null;
+        
+        try {
+            //
+            // Establecer una conexión
+            conn = DriverManager.getConnection("jdbc:sqlite:pronosticos.db");
+            // Crear el "statement" para enviar comandos
+            Statement stmt = conn.createStatement();
+            // Crear el "statement" para enviar comandos
+            
+            String sql = "SELECT "
+            + "idEquipo, Nombre, Descripcion "
+            + "FROM equipos " ;
+            ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
+            while (rs.next()){
+                auxEquipo = new Equipo();
+                auxEquipo.setIdEquipo(rs.getInt("idEquipo"));
+                auxEquipo.setNombre(rs.getString("Nombre"));
+                auxEquipo.setDescripcion(rs.getString("Descripcion"));        
+                // Agrego el objeto recién creado a al atributo que contiene el ArrayList de Equipos.
+                equipos.add(auxEquipo);
+    
+            }
+        } catch (SQLException e1) {
+            System.out.println("SQLException - Mensaje E1: " + e1.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                 }
+                } catch (SQLException e) {
+                // conn close failed.
+                System.out.println(e.getMessage());
+                }
         }
         // System.out.println("Fin de archivo.");
     }

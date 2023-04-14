@@ -28,7 +28,8 @@ public class PronosticoDeportivo {
         // cargar y listar los equipos
         System.out.println("\n" + "*".repeat(10) + " Equipos " + "*".repeat(10) + "\n");
         equipos.setNombreArchivo("equipos.csv");
-        equipos.cargarDeArchivo();
+        //equipos.cargarDeArchivo();
+        equipos.cargarDeDB();
         System.out.println(equipos.listar());
         
         // Buscar y mostrar el equipo 17...
