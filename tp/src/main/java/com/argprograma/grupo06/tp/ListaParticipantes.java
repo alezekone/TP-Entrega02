@@ -6,6 +6,11 @@ package tp;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +23,7 @@ public class ListaParticipantes extends ArrayList {
 
     public ListaParticipantes() {
         super();
-        this.participantes = null;
+        this.participantes = new ArrayList<Participante>();
         this.nombreDeArchivo = "";
     }
 
@@ -146,5 +151,43 @@ public class ListaParticipantes extends ArrayList {
             System.out.println("El participante " + pte.getNombre() + " -con " + cantAciertos + " aciertos en " + cantPronosticos + " pronosticos- tiene " + puntaje + " puntos.");
         }
     }
+     void cargarDeDB(){
+        Participante auxParticipante = null;
+        
+        Connection conn = null;
+        
+        try {
+            //
+            // Establecer una conexión
+            conn = DriverManager.getConnection("jdbc:sqlite:pronosticos.db");
+            // Crear el "statement" para enviar comandos
+            Statement stmt = conn.createStatement();
+            // Crear el "statement" para enviar comandos
+            
+            String sql = "SELECT "
+            + "idParticipante, Nombre"
+            + "FROM participantes " ;
+            ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
+            while (rs.next()){
+                auxParticipante = new Participante();
+                auxParticipante.setIdParticipante(rs.getInt("idParticipante"));
+                auxParticipante.setNombre(rs.getString("Nombre"));
+                // Agrego el objeto recién creado a al atributo que contiene el ArrayList de Equipos.
+                participantes.add(auxParticipante);
     
+            }
+        } catch (SQLException e1) {
+            System.out.println("SQLException - Mensaje E1: " + e1.getMessage());
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                 }
+                } catch (SQLException e) {
+                // conn close failed.
+                System.out.println(e.getMessage());
+                }
+        }
+       
+    }
 }
