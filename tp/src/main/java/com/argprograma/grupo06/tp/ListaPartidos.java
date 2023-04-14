@@ -178,7 +178,6 @@ public class ListaPartidos extends ArrayList {
     }
     void cargarDeDB(ListaEquipos equipos){
         Partido auxPartido = null;
-        boolean todoOk = true;
         if (this.partidos == null) {
             partidos = new ArrayList<Partido>();
         } else {
@@ -226,6 +225,5 @@ public class ListaPartidos extends ArrayList {
                 System.out.println(e.getMessage());
                 }
         }
-        // System.out.println("Fin de archivo.");
-    }  
+        }  
 }
