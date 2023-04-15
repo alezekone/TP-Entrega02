@@ -1,7 +1,7 @@
 /*
 Para entrega 2
  */
-package tp;
+package com.argprograma.grupo06.tp;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -61,7 +61,8 @@ public class PronosticoDeportivo {
         // Cargar y listar pronosticos.
         System.out.println("\n" + "*".repeat(10) + " Pronosticos del participante con id 7... " + "*".repeat(10) + "\n");
         pronosticos.setNombreDeArchivo("pronosticos.csv");
-        pronosticos.cargarDeArchivo(7, equipos, partidos);
+        // pronosticos.cargarDeArchivo(7, equipos, partidos);
+        pronosticos.cargarDeDB(7, equipos, partidos);
         System.out.println("Los pronósticos del participante 7 son: \n" + pronosticos.listar());
         
         // PRUEBA: Creamos participantes y cargamos un pronostico
