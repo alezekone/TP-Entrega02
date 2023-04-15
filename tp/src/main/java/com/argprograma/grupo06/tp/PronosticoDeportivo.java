@@ -101,8 +101,9 @@ public class PronosticoDeportivo {
         System.out.println("El caracter es: " + Character.toUpperCase(pruebita));
         */
         
-        participantes.setNombreDeArchivo("participantes.csv");
-        participantes.cargarDeArchivo();
+        // participantes.setNombreDeArchivo("participantes.csv");
+        // participantes.cargarDeArchivo();
+        participantes.cargarDeDB();
         System.out.println("\n" + "*".repeat(10) + " Participantes " + "*".repeat(10) + "\n");
         System.out.println(participantes.listar());
         

@@ -165,7 +165,7 @@ public class ListaParticipantes extends ArrayList {
             // Crear el "statement" para enviar comandos
             
             String sql = "SELECT "
-            + "idParticipante, Nombre"
+            + "*"
             + "FROM participantes " ;
             ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
             while (rs.next()){
@@ -177,7 +177,7 @@ public class ListaParticipantes extends ArrayList {
     
             }
         } catch (SQLException e1) {
-            System.out.println("SQLException - Mensaje E1: " + e1.getMessage());
+            System.out.println("Class: " + this.getClass().getSimpleName() + " - SQLException - Mensaje E1: " + e1.getMessage());
         } finally {
             try {
                 if (conn != null) {

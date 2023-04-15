@@ -87,10 +87,10 @@ public class ListaPronosticos extends ArrayList {
         Scanner sc = null;
         Pronostico auxPronostico = null;
         boolean todoOk = true;
-        int auxIdPronostico;
-        int auxIdParticipante;
-        int auxIdPartido;
-        int auxIdEquipo;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
+        int auxIdPronostico = 0;
+        int auxIdParticipante = 0;
+        int auxIdPartido = 0;
+        int auxIdEquipo = 0;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
         char auxResultado;
         
         if (this.pronosticos == null) {
@@ -221,10 +221,10 @@ public class ListaPronosticos extends ArrayList {
         Scanner sc = null;
         Pronostico auxPronostico = null;
         boolean todoOk = true;
-        int auxIdPronostico;
-        int auxIdParticipante;
-        int auxIdPartido;
-        int auxOrdenEquipo;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
+        int auxIdPronostico = 0;
+        int auxIdParticipante = 0;
+        int auxIdPartido = 0;
+        int auxOrdenEquipo = 0;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
         char auxResultado;
         
         Connection conn = null;
