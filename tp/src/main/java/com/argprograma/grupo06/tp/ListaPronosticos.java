@@ -249,7 +249,7 @@ public class ListaPronosticos extends ArrayList {
             
             String sql = "SELECT "
             + "idPronostico, idParticipante, idPartido, idEquipo, Resultado "
-            + "FROM pronosticos " ;
+            + "FROM pronosticos WHERE idParticipante = " + idParticipante ;
             ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
             while (rs.next()){
 
@@ -262,32 +262,30 @@ public class ListaPronosticos extends ArrayList {
                         
                     // Si hasta acá vamos bien, veo si el idParticipante de la 
                     // linea de archivo en análisis coincide con el id del
-                    // Participante cuya lista de pronósticos estamos intentando
+                    // Participante (ahora sí, gracias al WHERE, ya no es necesario
+                    // verificar nada) cuya lista de pronósticos estamos intentando
                     // levantar.
                     // En caso negativo, ignoro la línea.
                     // En caso afirmativo, analizo si existen un Partido y un 
                     // Equipo con los id suministrados. 
                         
-                    if(auxIdParticipante!=idParticipante){
-                        continue; // Salgo del while, esta línea no me interesa.
-                    } else {
-                        Partido auxPartido = partidos.getPartido(auxIdPartido);
-                        Equipo auxEquipo = null;
-                        if (auxOrdenEquipo == 1) {
-                            auxEquipo = auxPartido.getEquipo1();
-                        } else {   // auxOrdenEquipo == 2
-                            auxEquipo = auxPartido.getEquipo2();
-                        }
-
-                        // Verifico existencia de Partido y Equipo con esos ids.
-                        if (auxPartido!=null && auxEquipo!=null) { 
-                            auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, Character.toUpperCase(auxResultado));
-                        } else {
-                            mensajeDeError = "No se puede armar la lista de pronosticos para este participante.\n";
-                            mensajeDeError += "Uno de los Equipos y/o Partidos referidos no existe.\n";
-                            todoOk = false;
-                        }
+                    Partido auxPartido = partidos.getPartido(auxIdPartido);
+                    Equipo auxEquipo = null;
+                    if (auxOrdenEquipo == 1) {
+                        auxEquipo = auxPartido.getEquipo1();
+                    } else {   // auxOrdenEquipo == 2
+                        auxEquipo = auxPartido.getEquipo2();
                     }
+
+                    // Verifico existencia de Partido y Equipo con esos ids.
+                    if (auxPartido!=null && auxEquipo!=null) { 
+                        auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, Character.toUpperCase(auxResultado));
+                    } else {
+                        mensajeDeError = "No se puede armar la lista de pronosticos para este participante.\n";
+                        mensajeDeError += "Uno de los Equipos y/o Partidos referidos no existe.\n";
+                        todoOk = false;
+                    }
+                    
                 } catch (NumberFormatException e1){
                     todoOk = false;
                     mensajeDeError = "Alguno de los campos de id es no entero.";
