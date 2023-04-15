@@ -2,13 +2,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tp;
+package com.argprograma.grupo06.tp;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 // ACLARACIÓN IMPORTANTE:
 // El archivo "pronosticos.csv" contiene todos los pronósticos,
@@ -32,13 +37,13 @@ public class ListaPronosticos extends ArrayList {
 
     public ListaPronosticos() {
         super();
-        pronosticos = null;
+        pronosticos = new ArrayList<>();
         nombreDeArchivo = "";
     }
 
     public ListaPronosticos(String nombreDeArchivo) {
         super();
-        pronosticos = null;
+        pronosticos = new ArrayList<>();
         this.nombreDeArchivo = nombreDeArchivo;
     }
     
@@ -211,8 +216,113 @@ public class ListaPronosticos extends ArrayList {
         }        
     }
 
+    public void cargarDeDB(int idParticipante, ListaEquipos equipos, ListaPartidos partidos) {
+        String mensajeDeError = "";
+        Scanner sc = null;
+        Pronostico auxPronostico = null;
+        boolean todoOk = true;
+        int auxIdPronostico;
+        int auxIdParticipante;
+        int auxIdPartido;
+        int auxOrdenEquipo;  // No es el id del Equipo, es su número de orden en el Partido (1 ó 2).
+        char auxResultado;
+        
+        Connection conn = null;
+        
+        if (!this.pronosticos.isEmpty()) {
+            // La lista de equipos no está vacía, es decir que estoy llamando
+            // al metodo cargarDeArchivo() por segunda vez. Lo que hago en 
+            // este caso es destruir la lista y crear una nueva. De este
+            // modo, evito tener el atributo idEquipo duplicado, lo cual 
+            // sería un problema en el futuro.
+            while (!pronosticos.isEmpty()) {
+                pronosticos.remove(0);
+            }
+        }
+        
+        try {
+            // Establecer una conexión
+            conn = DriverManager.getConnection("jdbc:sqlite:pronosticos.db");
+            // Crear el "statement" para enviar comandos
+            Statement stmt = conn.createStatement();
+            // Crear el "statement" para enviar comandos
+            
+            String sql = "SELECT "
+            + "idPronostico, idParticipante, idPartido, idEquipo, Resultado "
+            + "FROM pronosticos " ;
+            ResultSet rs = stmt.executeQuery(sql); // Ejecutar la consulta y obtener el ResultSet
+            while (rs.next()){
 
-    
+                try {
+                    auxIdPronostico = rs.getInt("idPronostico");
+                    auxIdParticipante = rs.getInt("idParticipante");
+                    auxIdPartido = rs.getInt("idPartido");
+                    auxOrdenEquipo = rs.getInt("idEquipo"); // No deberia ser idEquipo !!! (1 ó 2).
+                    auxResultado = rs.getString("Resultado").charAt(0);
+                        
+                    // Si hasta acá vamos bien, veo si el idParticipante de la 
+                    // linea de archivo en análisis coincide con el id del
+                    // Participante cuya lista de pronósticos estamos intentando
+                    // levantar.
+                    // En caso negativo, ignoro la línea.
+                    // En caso afirmativo, analizo si existen un Partido y un 
+                    // Equipo con los id suministrados. 
+                        
+                    if(auxIdParticipante!=idParticipante){
+                        continue; // Salgo del while, esta línea no me interesa.
+                    } else {
+                        Partido auxPartido = partidos.getPartido(auxIdPartido);
+                        Equipo auxEquipo = null;
+                        if (auxOrdenEquipo == 1) {
+                            auxEquipo = auxPartido.getEquipo1();
+                        } else {   // auxOrdenEquipo == 2
+                            auxEquipo = auxPartido.getEquipo2();
+                        }
+
+                        // Verifico existencia de Partido y Equipo con esos ids.
+                        if (auxPartido!=null && auxEquipo!=null) { 
+                            auxPronostico = new Pronostico(auxIdPronostico, auxEquipo, auxPartido, Character.toUpperCase(auxResultado));
+                        } else {
+                            mensajeDeError = "No se puede armar la lista de pronosticos para este participante.\n";
+                            mensajeDeError += "Uno de los Equipos y/o Partidos referidos no existe.\n";
+                            todoOk = false;
+                        }
+                    }
+                } catch (NumberFormatException e1){
+                    todoOk = false;
+                    mensajeDeError = "Alguno de los campos de id es no entero.";
+                    // System.out.println("Exception - Mensaje: " + e1.getMessage());
+                }
+                // Si llegué hasta acá, la línea recién leída es de mi interés
+                // y el objeto Pronostico fue correctamente creado. Entonces, 
+                // lo agrego al atributo que contiene el ArrayList de Pronosticos.
+                if (todoOk) {
+                    pronosticos.add(auxPronostico);
+                } else {
+                    System.out.println("Se produjo un error: ");
+                    System.out.println(mensajeDeError);
+                }
+            }  // END DEL WHILE
+        } catch (SQLException e1){
+            System.out.println("SQLException - Mensaje: " + e1.getMessage());
+        } finally {
+            try {
+                // Si apareció en el archivo alguna línea fuera de formato,
+                // entonces vacío la lista de equipos.
+                if (!todoOk) {
+                    while (!pronosticos.isEmpty()) {
+                        pronosticos.remove(0);
+                    }
+                }
+                // Si llegó a abrir el Scanner con éxito, aquí lo cierro.
+                if (sc != null){
+                    sc.close();
+                }
+            } catch  (Exception e3) {
+                System.out.println("Exception Mensaje: " + e3.getMessage());
+            }
+        }
+    }
 
 
     
