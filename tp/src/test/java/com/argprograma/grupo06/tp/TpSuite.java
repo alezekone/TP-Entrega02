@@ -16,7 +16,7 @@ import org.junit.runners.Suite;
  * @author mye
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({tp.EquipoTest.class, tp.ListaPronosticosTest.class, tp.PartidoTest.class, tp.ParticipanteTest.class})
+@Suite.SuiteClasses({EquipoTest.class, ListaPronosticosTest.class, PartidoTest.class, ParticipanteTest.class})
 public class TpSuite {
 
     @BeforeClass

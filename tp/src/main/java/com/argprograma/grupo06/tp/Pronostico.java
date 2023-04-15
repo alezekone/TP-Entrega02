@@ -1,4 +1,4 @@
-package tp;
+package com.argprograma.grupo06.tp;
 
 public class Pronostico {
     final private int PUNTOS_X_ACERTAR = 1;

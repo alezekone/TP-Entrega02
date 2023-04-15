@@ -1,4 +1,4 @@
-package tp;
+package com.argprograma.grupo06.tp;
 
 
 public class Equipo {

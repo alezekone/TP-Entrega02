@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit4TestClass.java to edit this template
  */
-package tp;
+package com.argprograma.grupo06.tp;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -102,7 +102,7 @@ public class EquipoTest {
         String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-       //<Equipo{idEquipo=[[0, nombre=, descripcion=]]}>
+        //<Equipo{idEquipo=[[0, nombre=, descripcion=]]}>
         //<Equipo{idEquipo=[0, nombre=, descripcion=]}>      
     }
     

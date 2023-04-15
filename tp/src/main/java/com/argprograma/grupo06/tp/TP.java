@@ -1,7 +1,7 @@
 /*
  Para entrega 2
  */
-package tp;
+package com.argprograma.grupo06.tp;
 
 public class TP {
 

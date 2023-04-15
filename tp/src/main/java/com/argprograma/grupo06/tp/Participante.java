@@ -1,4 +1,4 @@
-package tp;
+package com.argprograma.grupo06.tp;
 
 import java.util.List;
 import java.util.ArrayList;

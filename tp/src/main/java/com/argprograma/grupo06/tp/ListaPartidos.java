@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package tp;
+package com.argprograma.grupo06.tp;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,10 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- *
- * @author mye
- */
+
 public class ListaPartidos extends ArrayList {
      private List<Partido> partidos;
      private String nombreArchivo;
@@ -178,10 +175,12 @@ public class ListaPartidos extends ArrayList {
     }
     void cargarDeDB(ListaEquipos equipos){
         Partido auxPartido = null;
-        if (this.partidos == null) {
-            partidos = new ArrayList<Partido>();
-        } else {
-              while (!partidos.isEmpty()) {
+        // Si la lista ya tenía objetos
+        // (porque se había invocado este
+        // método antes, por ejemplo)
+        // se eliminas los objetos.
+        if (!this.partidos.isEmpty()) {
+            while (!partidos.isEmpty()) {
                 partidos.remove(0);
             }
         }
@@ -219,11 +218,11 @@ public class ListaPartidos extends ArrayList {
             try {
                 if (conn != null) {
                     conn.close();
-                 }
-                } catch (SQLException e) {
+                }
+            } catch (SQLException e) {
                 // conn close failed.
                 System.out.println(e.getMessage());
-                }
+            }
         }
-        }  
+    }  
 }
