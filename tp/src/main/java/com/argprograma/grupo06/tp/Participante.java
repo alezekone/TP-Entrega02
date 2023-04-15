@@ -86,6 +86,7 @@ public class Participante {
         }
         if (cantPronosticos == 0) {
             aux = "[]";
+            return "Participante = " + idParticipante +  ",       Nombre =" + nombre;
         } else {
             aux = "[";
             for (int i = 0; i < cantPronosticos; i++) {
@@ -96,7 +97,7 @@ public class Participante {
             }
             aux = aux + "]";
         }
-        return "Participante{" + "idParticipante=" + idParticipante +  ", nombre=" + nombre + ", pronosticos=" + aux + ", puntaje=" + puntaje + "}";
+        return "Participante = " + idParticipante +  ",       Nombre =" + nombre + ", pronosticos=" + aux + ", puntaje=" + puntaje + "}";
     }
     
     void cargarPronosticos(ListaEquipos equipos, ListaPartidos partidos) {

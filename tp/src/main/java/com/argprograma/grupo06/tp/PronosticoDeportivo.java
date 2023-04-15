@@ -26,13 +26,14 @@ public class PronosticoDeportivo {
 
     public void play(){
         // cargar y listar los equipos
-        System.out.println("\n" + "*".repeat(10) + " Equipos " + "*".repeat(10) + "\n");
+        System.out.println("\n" + "*".repeat(30) + " Equipos " + "*".repeat(30) + "\n");
         equipos.setNombreArchivo("equipos.csv");
         //equipos.cargarDeArchivo();
         equipos.cargarDeDB();
         System.out.println(equipos.listar());
         
         // Buscar y mostrar el equipo 17...
+        System.out.println("\n" + "=".repeat(80));       
         System.out.println("\n" + "*".repeat(10) + " Buscando el equipo con id 17... " + "*".repeat(10) + "\n");
         int idEquipo = 17;
         Equipo eq = equipos.getEquipo(idEquipo);
@@ -43,13 +44,15 @@ public class PronosticoDeportivo {
         }
         
         // Cargar y listar partidos.
-        System.out.println("\n" + "*".repeat(10) + " Partidos " + "*".repeat(10) + "\n");
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("\n" + "*".repeat(5) + " Partidos " + "*".repeat(55) + "\n");
         partidos.setNombreArchivo("partidos.csv");
         partidos.cargarDeDB(equipos);
         System.out.println(partidos.listar());
         
         // Buscar y mostrar el partido 7.
-        System.out.println("\n" + "*".repeat(10) + " Buscando el partido con id 7... " + "*".repeat(10) + "\n");
+        System.out.println("\n" + "=".repeat(80));
+        System.out.println("\n" + "*".repeat(10) + " Buscando el partido con id 7... " + "*".repeat(20) + "\n");
         int idPartido = 7;
         Partido p = partidos.getPartido(idPartido);
         if (p != null) {
@@ -59,6 +62,7 @@ public class PronosticoDeportivo {
         }
         
         // Cargar y listar pronosticos.
+        System.out.println("\n" + "=".repeat(80));
         System.out.println("\n" + "*".repeat(10) + " Pronosticos del participante con id 7... " + "*".repeat(10) + "\n");
         pronosticos.setNombreDeArchivo("pronosticos.csv");
         // pronosticos.cargarDeArchivo(7, equipos, partidos);
@@ -104,6 +108,7 @@ public class PronosticoDeportivo {
         // participantes.setNombreDeArchivo("participantes.csv");
         // participantes.cargarDeArchivo();
         participantes.cargarDeDB();
+        System.out.println("\n" + "=".repeat(80));
         System.out.println("\n" + "*".repeat(10) + " Participantes " + "*".repeat(10) + "\n");
         System.out.println(participantes.listar());
         
@@ -115,9 +120,10 @@ public class PronosticoDeportivo {
             pte.cargarPronosticos(equipos, partidos);
         }
         
+        System.out.println("\n" + "=".repeat(80));
         System.out.println("\n" + "*".repeat(10) + " Participantes y sus puntajes " + "*".repeat(10) + "\n");
         participantes.calcularPuntajes();
-        
+        System.out.println("\n" + "=".repeat(80));
         System.out.println("\n" + "*".repeat(10) + " Participantes y sus datos completos " + "*".repeat(10) + "\n");
         System.out.println("Los participantes son:\n" + participantes.listar());
     }    
