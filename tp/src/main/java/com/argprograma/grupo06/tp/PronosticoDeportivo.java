@@ -121,10 +121,18 @@ public class PronosticoDeportivo {
         }
         
         System.out.println("\n" + "=".repeat(80));
-        System.out.println("\n" + "*".repeat(10) + " Participantes y sus puntajes " + "*".repeat(10) + "\n");
+        System.out.println("\n" + "TP Integrador - ENTREGA 3 - PUNTO 2");
+        System.out.println("\n" + "*".repeat(10) + " Participantes (desordenados) y sus puntajes " + "*".repeat(10) + "\n");
         participantes.calcularPuntajes();
         System.out.println("\n" + "=".repeat(80));
         System.out.println("\n" + "*".repeat(10) + " Participantes y sus datos completos " + "*".repeat(10) + "\n");
         System.out.println("Los participantes son:\n" + participantes.listar());
+        
+        System.out.println( "=".repeat(80));
+        System.out.println("\n" + "TP Integrador - ENTREGA 3 - PUNTO 3");
+        System.out.println("\n" + "*".repeat(10) + " Participantes ordenados por puntaje" + "*".repeat(20));
+        System.out.println(participantes.listaOrdenadaPorPuntaje());
+        
+       
     }    
 }

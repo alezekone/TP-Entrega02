@@ -1,10 +1,8 @@
 package com.argprograma.grupo06.tp;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.*;
 
-public class Participante {
+public class Participante implements Comparable<Participante> {
     
     private int idParticipante;
     private String nombre;
@@ -59,7 +57,7 @@ public class Participante {
         this.puntaje = puntaje;
     }
     
-    
+   
  /*   
     public void addPronostico(Pronostico pronostico) {
         if (this.pronosticos == null) {
@@ -97,7 +95,7 @@ public class Participante {
             }
             aux = aux + "]";
         }
-        return "Participante = " + idParticipante +  ",       Nombre =" + nombre + ", pronosticos=" + aux + ", puntaje=" + puntaje + "}";
+        return "Participante = " + idParticipante +  ",  Nombre =" + nombre + ", pronosticos=" + aux + ", puntaje=" + puntaje + "}";
     }
     
     void cargarPronosticos(ListaEquipos equipos, ListaPartidos partidos) {
@@ -113,6 +111,18 @@ public class Participante {
         lp.cargarDeArchivo(this.idParticipante, equipos, partidos);
         this.setPronosticos(lp);
 
+    }
+    @Override
+    public int compareTo(Participante p) {
+        // devuelve -1, si es menor, 0 si es igual, 1 si es mayor
+        int miPuntaje = this.getPuntaje();
+        int otroPuntaje = p.getPuntaje();
+        if (miPuntaje == otroPuntaje)
+            return 0;
+        else if (miPuntaje > otroPuntaje)
+            return 1;
+        else 
+            return -1;
     }
 
 }

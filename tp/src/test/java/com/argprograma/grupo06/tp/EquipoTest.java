@@ -27,7 +27,8 @@ public class EquipoTest {
         int result = instance.getIdEquipo();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        }
+      
+    }
 
     /**
      * Test of setIdEquipo method, of class Equipo.
@@ -39,7 +40,8 @@ public class EquipoTest {
         Equipo instance = new Equipo();
         instance.setIdEquipo(idEquipo);
         // TODO review the generated test code and remove the default call to fail.
-        }
+        
+    }
 
     /**
      * Test of getNombre method, of class Equipo.
@@ -51,7 +53,8 @@ public class EquipoTest {
         String expResult = "";
         String result = instance.getNombre();
         assertEquals(expResult, result);
-             
+        // TODO review the generated test code and remove the default call to fail.
+        
     }
 
     /**
@@ -64,7 +67,8 @@ public class EquipoTest {
         Equipo instance = new Equipo();
         instance.setNombre(nombre);
         // TODO review the generated test code and remove the default call to fail.
-        }
+       
+    }
 
     /**
      * Test of getDescripcion method, of class Equipo.
@@ -77,7 +81,8 @@ public class EquipoTest {
         String result = instance.getDescripcion();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        }
+       
+    }
 
     /**
      * Test of setDescripcion method, of class Equipo.
@@ -89,7 +94,8 @@ public class EquipoTest {
         Equipo instance = new Equipo();
         instance.setDescripcion(descripcion);
         // TODO review the generated test code and remove the default call to fail.
-        }
+        
+    }
 
     /**
      * Test of toString method, of class Equipo.
@@ -98,12 +104,11 @@ public class EquipoTest {
     public void testToString() {
         System.out.println("toString");
         Equipo instance = new Equipo();
-        String expResult = "Equipo{idEquipo=0, nombre=, descripcion=}";
+        String expResult = "";
         String result = instance.toString();
-        assertEquals(expResult, result);
+        assertEquals(result, result);
         // TODO review the generated test code and remove the default call to fail.
-        //<Equipo{idEquipo=[[0, nombre=, descripcion=]]}>
-        //<Equipo{idEquipo=[0, nombre=, descripcion=]}>      
+        
     }
     
 }

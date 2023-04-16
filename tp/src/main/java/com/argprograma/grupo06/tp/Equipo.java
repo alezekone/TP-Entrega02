@@ -48,7 +48,7 @@ public class Equipo {
     // ToString()
     @Override
     public String toString() {
-        return "Equipo=" + idEquipo  + "        Nombre=" + nombre + ",          Descripción= " + descripcion;
+        return "Equipo =" + idEquipo  + "\t" + "Nombre =" + nombre + "\t" +"Descripción = " + descripcion;
     }
   
 }

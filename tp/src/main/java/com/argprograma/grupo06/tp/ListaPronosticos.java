@@ -313,8 +313,8 @@ public class ListaPronosticos extends ArrayList {
                     }
                 }
                 // Si llegó a abrir el Scanner con éxito, aquí lo cierro.
-                if (sc != null){
-                    sc.close();
+                if (conn != null) {
+                    conn.close();
                 }
             } catch  (Exception e3) {
                 System.out.println("Exception Mensaje: " + e3.getMessage());

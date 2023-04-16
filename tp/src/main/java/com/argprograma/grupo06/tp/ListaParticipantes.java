@@ -12,11 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
 public class ListaParticipantes extends ArrayList {
-    private List<Participante> participantes;
+    public List<Participante> participantes;
     private String nombreDeArchivo;
     
     // CONSTRUCTORS
@@ -85,7 +86,7 @@ public class ListaParticipantes extends ArrayList {
     public String listar() {
         String lista = "";
         for (Participante participante: participantes) {
-            lista += (participante + "\n");
+            lista += (participante + "\n" + "\n");
         }  
         return lista;
     }
@@ -190,4 +191,34 @@ public class ListaParticipantes extends ArrayList {
         }
        
     }
+      
+    
+    public List<Participante> getOrdenadosPorPuntaje() {
+        // genera una copia de la lista para no modificar el contenido original
+        List<Participante> ordenados = new ArrayList <Participante>();
+        ordenados.addAll( participantes);
+        
+        //Obtener la lista ordenada de maor a menor
+        Collections.sort(ordenados,Collections.reverseOrder());
+        return ordenados;
+    }
+    
+    public String listaOrdenadaPorPuntaje(){
+        List<Participante> ordenados = this.getOrdenadosPorPuntaje();
+        String Lista = "";
+        String ganador = "";
+        int puesto =1;
+        for(Participante participante: ordenados){
+            //System.out.println("\n" + "El participante " + participante.getNombre() + " -con " + participante.getPuntaje() + " aciertos. " );
+            Lista += "\n" + "En el " + puesto + "° puesto el participante " + participante.getNombre() + " con " + participante.getPuntaje() + " aciertos. " ;
+            if ( puesto == 1){
+            ganador = "\n" + "\n" + "El participante ganador/a es " + participante.getNombre() + " con " + participante.getPuntaje() + " aciertos !!!";    
+            }
+                    puesto = puesto + 1 ;
+                  
+        }
+        Lista = Lista + ganador ;
+        return Lista;
+    }
+    
 }
