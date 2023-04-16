@@ -130,7 +130,7 @@ public class PronosticoDeportivo {
         
         System.out.println( "=".repeat(80));
         System.out.println("\n" + "TP Integrador - ENTREGA 3 - PUNTO 3");
-        System.out.println("\n" + "*".repeat(10) + " Participantes ordenados por puntaje" + "*".repeat(20));
+        System.out.println("\n" + "*".repeat(10) + " Participantes ordenados por puntaje en ASCIITable  " + "*".repeat(20)+"\n");
         System.out.println(participantes.listaOrdenadaPorPuntaje());
         
        
