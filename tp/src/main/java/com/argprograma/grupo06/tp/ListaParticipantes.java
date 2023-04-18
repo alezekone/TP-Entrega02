@@ -15,6 +15,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
+import de.vandermeer.asciitable.AsciiTable;
+import de.vandermeer.skb.interfaces.StandardExampleAsCmd;
+import de.vandermeer.skb.interfaces.transformers.textformat.TextAlignment;
+import de.vandermeer.asciitable.AT_Cell;
+
 
 public class ListaParticipantes extends ArrayList {
     public List<Participante> participantes;
@@ -205,20 +210,39 @@ public class ListaParticipantes extends ArrayList {
     
     public String listaOrdenadaPorPuntaje(){
         List<Participante> ordenados = this.getOrdenadosPorPuntaje();
+        AsciiTable at = new AsciiTable();
+	/*at.addRule();
+	at.addRow("row 1 col 1", "row 1 col 2");
+	at.addRule();
+	at.addRow("row 2 col 1", "row 2 col 2");
+	at.addRule();
+
+        */	
         String Lista = "";
         String ganador = "";
         int puesto =1;
         for(Participante participante: ordenados){
             //System.out.println("\n" + "El participante " + participante.getNombre() + " -con " + participante.getPuntaje() + " aciertos. " );
             Lista += "\n" + "En el " + puesto + "° puesto el participante " + participante.getNombre() + " con " + participante.getPuntaje() + " aciertos. " ;
+            at.addRow("    "+participante.getNombre(),"   "+participante.getPuntaje());
+            at.addRule();
+            //at.setTextAlignment(TextAlignment.Center);
+            
             if ( puesto == 1){
             ganador = "\n" + "\n" + "El participante ganador/a es " + participante.getNombre() + " con " + participante.getPuntaje() + " aciertos !!!";    
             }
                     puesto = puesto + 1 ;
                   
         }
+        at.setTextAlignment(TextAlignment.CENTER);
+	System.out.println(at.render(50));
+        at.getContext().setWidth(50);
+	System.out.println(at.render());
+
         Lista = Lista + ganador ;
         return Lista;
     }
     
+    
+   
 }
