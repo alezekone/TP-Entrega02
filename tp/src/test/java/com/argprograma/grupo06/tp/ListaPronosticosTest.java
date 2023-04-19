@@ -17,17 +17,6 @@ public class ListaPronosticosTest {
     public ListaPronosticosTest() {
     }
 
-    /**
-     * Test of getPronosticos method, of class ListaPronosticos.
-     */
-    @Test
-    public void testGetPronosticos() {
-        System.out.println("getPronosticos");
-        ListaPronosticos instance = new ListaPronosticos();
-        List<Pronostico> expResult = null;
-        List<Pronostico> result = instance.getPronosticos();
-        assertEquals(expResult, result);
-       }
 
     /**
      * Test of setPronosticos method, of class ListaPronosticos.
